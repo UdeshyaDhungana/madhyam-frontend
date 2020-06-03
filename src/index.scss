@@ -1,0 +1,17 @@
+//This file changes the default settings of bootstrap
+
+a{
+	color: #333 !important;
+	text-decoration: none !important;
+}
+
+nav a{
+	font-weight: bold !important;
+}
+
+//Custom utilities
+
+.rounded-more{
+	border-radius: 15px !important;
+}
+
