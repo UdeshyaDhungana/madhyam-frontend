@@ -6,6 +6,7 @@ import Home from './routes/Home';
 import Signup from './routes/Signup'
 import Login from './routes/Login'
 import Article from './routes/Article'
+import UserProfile from './routes/UserProfile'
 //import Login from './routes/Login'
 
 // Components
@@ -21,6 +22,7 @@ class App extends Component {
 					<Route path="/signup" exact component={Signup} />
 					<Route path="/login" exact component={Login} />
 					<Route path="/articles/:id" component={Article} />
+					<Route path="/users/:id" component={UserProfile} />
 				</Switch>
 			</Router>
 			<Footer />

@@ -10,7 +10,7 @@ export default function NoUserNav() {
 				<a href="/" className="navbar-brand ">
 					<img src={Logo} alt="madhyam logo" />
 				</a>
-				<ul className="navbar-nav ml-auto">
+				<ul className="navbar-nav ml-auto font-weight-bold">
 					<li className="nav-item nav-link">
 						<Link to="/login"> 
 							Login

@@ -1,12 +1,8 @@
-//This file changes the default settings of bootstrap
-
+//Theming in bootstrap
+//find a way to do theming
 a{
 	color: #333 !important;
 	text-decoration: none !important;
-}
-
-nav a{
-	font-weight: bold !important;
 }
 
 //Custom utilities
@@ -15,3 +11,15 @@ nav a{
 	border-radius: 15px !important;
 }
 
+//user page: animation for articles link
+h5>.MuiSvgIcon-root{
+	position: relative;
+	left: 4px;
+	bottom: 1px;
+	font-size: 16px;
+	transition: 0.3s ease-in-out;
+}
+
+h5:hover>.MuiSvgIcon-root{
+	transform: translateX(10px);
+}
