@@ -7,6 +7,7 @@ import Signup from './routes/Signup'
 import Login from './routes/Login'
 import Article from './routes/Article'
 import UserProfile from './routes/UserProfile'
+import ArticleForm from './routes/ArticleForm'
 //import Login from './routes/Login'
 
 // Components
@@ -21,8 +22,9 @@ class App extends Component {
 					<Route path="/" exact component={Home} />
 					<Route path="/signup" exact component={Signup} />
 					<Route path="/login" exact component={Login} />
-					<Route path="/articles/:id" component={Article} />
 					<Route path="/users/:id" component={UserProfile} />
+					<Route path="/articles/edit" exact component={ArticleForm} />
+					<Route path="/articles/:id" component={Article} />
 				</Switch>
 			</Router>
 			<Footer />

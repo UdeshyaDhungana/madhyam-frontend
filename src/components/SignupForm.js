@@ -4,6 +4,7 @@ import {createMuiTheme, ThemeProvider} from '@material-ui/core'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 
+//color theme for form
 const colorTheme  = createMuiTheme({
 	palette: {
 		primary:{

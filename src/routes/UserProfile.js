@@ -43,8 +43,8 @@ let articleListStyle = {
 }
 
 function UserBody(props){
-	const articlesList = props.articles.map((article, index)=> {
-		return (
+
+	const articlesList = props.articles.map((article, index)=> (
 			<div
 				className="rounded shadow-sm pl-3 pb-1 pt-4 mt-3"
 				style={articleListStyle}
@@ -62,7 +62,7 @@ function UserBody(props){
 				</a>
 			</div>
 		)
-	});
+	);
 	return (
 		<div className="container mt-5">
 			<div className="row">
@@ -97,7 +97,9 @@ export default class UserProfile extends React.Component{
 		super(props);
 		this.state = {
 			id: props.match.params.id,
-			user: <LoadingScreen />
+			loadingScreen: true,
+			errorInFetch: false,
+			userDetails: null,
 		}
 	}
 
@@ -113,29 +115,46 @@ export default class UserProfile extends React.Component{
 			}
 		}).then(result => result.json())
 			.then(user => {
-				console.log(user);
 				if (typeof(user._id) === "undefined"){
 					this.setState({
-						user: <NotFound404 />
+						loadingScreen: false,
+						errorInFetch: true,
 					});
 				} else {
+					let userDetails = {
+						fullname: user.fullname,
+						bio: user.bio,
+						articles: user.articles,
+					}
 					this.setState({
-						user: <UserBody
-							fullname={user.fullname}
-							bio={user.bio}
-							articles={user.articles}
-						/>
+						loadingScreen: false,
+						userDetails: userDetails,
 					})
 				}
 			});
 	}
 
 	render(){
+		//build the component required to render
+		let componentToRender = null;
+		if (this.state.loadingScreen){
+			componentToRender = <LoadingScreen />
+		} else {
+			if (this.state.errorInFetch){
+				componentToRender = <NotFound404 />
+			} else {
+				componentToRender = <UserBody 
+									articles={this.state.userDetails.articles}
+									fullname={this.state.userDetails.fullname}
+									bio={this.state.userDetails.bio}
+									/>
+			}
+		}
 		return (
 			<div>
 				<Nav />
 				<ThemeProvider theme={ColorTheme}>
-					{this.state.user}
+					{ componentToRender }
 				</ThemeProvider>
 			</div>
 

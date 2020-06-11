@@ -58,7 +58,7 @@ function ArticleBody(props){
 					{paragraphs}
 					<h5 className="text-right"> 
 						<Link to={props.author.url} style={authorStyle}>
-								{props.author.fullname}
+							{props.author.fullname}
 						</Link>
 					</h5>
 					<div className="text-right">
@@ -76,7 +76,9 @@ export default class Article extends React.Component{
 		super(props);
 		this.state = {
 			id: props.match.params.id,
-			article: <LoadingScreen />
+			isLoading: true,
+			fetchError: false,
+			articleDetails: null,
 		}
 	}
 
@@ -87,28 +89,48 @@ export default class Article extends React.Component{
 			.then(article =>{
 				if (typeof(article._id) === "undefined"){
 					this.setState({
-						article: <NotFound404 />
+						isLoading: false,
+						fetchError: true,
 					});
 				} else {
+					console.log(article);
+					let articleDetails = {
+						title: article.title,
+						author: article.author,
+						createdAt: article.createdAt,
+						paragraphs: article.paragraphs,
+					}
 					this.setState({
-						article: <ArticleBody
-							title={article.title}	
-							author={article.author}
-							createdAt={article.createdAt}
-							paragraphs={article.paragraphs}
-						/>
+						isLoading: false,
+						articleDetails: articleDetails,
 					});
 				}
 			});
 	}
 
-	render(){ return (
-		<div>
-		<Nav />
-		<ThemeProvider theme={ColorTheme}>
-		{this.state.article}
-		</ThemeProvider>
-		</div>
-	)
+	render(){
+		let componentToRender = null;
+		if (this.state.isLoading){
+			componentToRender = <LoadingScreen /> 
+		} else {
+			if (this.state.fetchError){
+				componentToRender = <NotFound404 />
+			} else {
+				componentToRender = <ArticleBody
+									title={this.state.articleDetails.title}
+									paragraphs={this.state.articleDetails.paragraphs}
+									createdAt={this.state.articleDetails.createdAt}
+									author={this.state.articleDetails.author}
+									/>
+			}
+		}
+		return (
+			<div>
+				<Nav />
+				<ThemeProvider theme={ColorTheme}>
+					{componentToRender}
+				</ThemeProvider>
+			</div>
+		)
 	}
 }
