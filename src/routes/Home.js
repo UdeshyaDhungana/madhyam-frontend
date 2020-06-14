@@ -1,6 +1,4 @@
 import React from 'react'
-// Components
-import Nav from '../components/Nav'
 // Images
 const firstImage = require('../assets/Home/HomePageImg1.jpg')
 const secondImage = require('../assets/Home/HomePageImg2.jpg')
@@ -11,7 +9,7 @@ function NoUserSection(props) {
 	return (
 		<section className="container">
 			<div className="row justify-content-around mt-5 pt-3">
-				<img className="col-md-5 img-fluid"  src={props.image} alt={props.alt} />
+				<img className="col-md-5 img-fluid" src={props.image} alt={props.alt} />
 				<div className={`col-md-5${(props.reverseOrder)?" order-first":""}`}>
 					<h2 className="mt-2">{props.title}</h2>
 					<p>
@@ -28,7 +26,6 @@ export default class Home extends React.Component {
 	render(){
 		return (
 			<div>
-				<Nav />
 				<NoUserSection
 					image={firstImage}
 					alt={"Writing desk"}

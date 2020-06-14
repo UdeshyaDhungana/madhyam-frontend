@@ -2,7 +2,6 @@ import React from 'react'
 import moment from 'moment/dist/moment'
 import {Link} from 'react-router-dom'
 import NotFound404 from '../components/NotFound404'
-import Nav from '../components/Nav'
 //components
 import {createMuiTheme, ThemeProvider} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
@@ -126,7 +125,6 @@ export default class Article extends React.Component{
 		}
 		return (
 			<div>
-				<Nav />
 				<ThemeProvider theme={ColorTheme}>
 					{componentToRender}
 				</ThemeProvider>

@@ -4,6 +4,9 @@ import {createMuiTheme, ThemeProvider} from '@material-ui/core'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 
+//utilities
+import Signup from '../utilities/Signup'
+
 //color theme for form
 const colorTheme  = createMuiTheme({
 	palette: {
@@ -24,15 +27,17 @@ export default class SignupForm extends React.Component{
 			password: "",
 			password2: "",
 			errorMessage: "",
+			isButtonDisabled: false,
 		}
 		this.ValidateEmail = this.ValidateEmail.bind(this);
 		this.ValidateNames = this.ValidateNames.bind(this);
-		this.ValidateBio = this.ValidateBio.bind(this);
 		this.ValidatePassword = this.ValidatePassword.bind(this);
 		this.ValidatePassword2 = this.ValidatePassword2.bind(this);
+		this.checkValid = this.checkValid.bind(this);
+
 		this.handleChange = this.handleChange.bind(this);
-		this.checkVisualValid = this.checkVisualValid.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+
 	}
 
 	ValidateNames(text) {
@@ -41,10 +46,6 @@ export default class SignupForm extends React.Component{
 
 	ValidateEmail(text) {
 		return (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(text));
-	}
-
-	ValidateBio(text) {
-		return (text.length <= 100);
 	}
 
 	ValidatePassword(text) {
@@ -58,20 +59,47 @@ export default class SignupForm extends React.Component{
 	handleChange(e){
 		let targetName = e.target.name;
 		let targetValue = e.target.value;
-
 		this.setState({
 			[targetName]: targetValue
 		});
 	}
 
-	checkVisualValid(truth, text){
-		return truth || text.length === 0;
+	checkValid(){
+		return (
+			this.ValidateNames(this.state.firstname) && 
+			this.ValidateNames(this.state.lastname) && 
+			this.ValidateEmail(this.state.email) && 
+			this.ValidatePassword(this.state.password) && 
+			this.ValidatePassword2(this.state.password2)
+		)
 	}
 
 	handleSubmit(e){
 		e.preventDefault();
-		console.log(this.state);
 		//Tovalidate and submit form
+		this.setState({
+			isButtonDisabled: true,
+		});
+
+		if (this.checkValid()){
+			Signup(Object.assign({}, this.state))
+				.then(res => {
+					if (res.errorMessage){
+						this.setState({
+							isButtonDisabled: false,
+							errorMessage: res.errorMessage,
+						})
+					} else {
+						//redirect to login page after signup
+						window.location.href = "/login";
+					}
+				});
+		} else {
+			this.setState({
+				errorMessage: "Please fill the form appropriately",
+				isButtonDisabled: false,
+			});
+		}
 	}
 
 	render(){
@@ -83,7 +111,7 @@ export default class SignupForm extends React.Component{
 					onSubmit={this.handleSubmit}
 				>
 
-				<h3 className="text-center">Create New Account</h3>
+					<h3 className="text-center">Create New Account</h3>
 
 					<TextField
 						size="small"
@@ -118,6 +146,7 @@ export default class SignupForm extends React.Component{
 						required
 						fullWidth
 						name="email"
+						autoComplete={"off"}
 						type="email"
 						label="E-mail"
 						id="email"
@@ -152,8 +181,10 @@ export default class SignupForm extends React.Component{
 						onChange={this.handleChange}
 						className="my-2"
 					/>
+					<p className="text-danger text-center">{this.state.errorMessage}</p>
 					<div className="mt-3 text-center">
 						<Button
+							disabled={this.state.isButtonDisabled}
 							type="submit"
 							color="primary"
 							variant={"contained"}

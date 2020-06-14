@@ -1,12 +1,10 @@
 import React from 'react'
-import NoUserNav from '../components/NoUserNav'
 import SignupForm from '../components/SignupForm'
 
 export default class Signup extends React.Component{
 	render(){
 		return (
 			<div>
-				<NoUserNav />
 				<div className="container-fluid">
 					<div className="row mt-4 justify-content-center">
 						<div 

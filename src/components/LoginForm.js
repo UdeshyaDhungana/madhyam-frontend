@@ -3,6 +3,10 @@ import TextField from '@material-ui/core/TextField'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import { Button } from '@material-ui/core'
+
+
+//utilities
+import Login from '../utilities/Login'
 // Theme tweaking
 const theme = createMuiTheme({
 	palette: {
@@ -19,7 +23,10 @@ export default class LoginForm extends React.Component{
 			email:"",
 			password:"",
 			errorMessage: "",
+			isButtonDisasbled:false,
 		}
+
+
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
@@ -34,8 +41,24 @@ export default class LoginForm extends React.Component{
 	}
 
 	handleSubmit(e){
+
 		e.preventDefault();
-		console.log(this.state);
+
+		this.setState({
+			isButtonDisasbled: true,
+		});
+
+		Login(Object.assign({}, this.state))
+			.then(res => { 
+				if (res.errors){
+					this.setState({
+						errorMessage: res.errors,
+						isButtonDisasbled: false,
+					})
+				} else {
+
+				}
+			});
 	}
 
 	render(){
@@ -84,6 +107,7 @@ export default class LoginForm extends React.Component{
 
 					<div className="text-center mt-5">
 						<Button
+							disabled={this.state.isButtonDisasbled}
 							variant="contained"
 							type="submit"
 							size="large"

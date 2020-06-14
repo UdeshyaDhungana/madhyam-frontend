@@ -12,22 +12,24 @@ import ArticleForm from './routes/ArticleForm'
 
 // Components
 import Footer from './components/Footer'
+import NoUserNav from './components/NoUserNav'
 
 class App extends Component {
 	render() {
 		return (
 			<div>
-			<Router>
-				<Switch>
-					<Route path="/" exact component={Home} />
-					<Route path="/signup" exact component={Signup} />
-					<Route path="/login" exact component={Login} />
-					<Route path="/users/:id" component={UserProfile} />
-					<Route path="/articles/edit" exact component={ArticleForm} />
-					<Route path="/articles/:id" component={Article} />
-				</Switch>
-			</Router>
-			<Footer />
+				<Router>
+					<NoUserNav />
+					<Switch>
+						<Route path="/" exact component={Home} />
+						<Route path="/signup" exact component={Signup} />
+						<Route path="/login" exact component={Login} />
+						<Route path="/users/:id" component={UserProfile} />
+						<Route path="/articles/new" exact component={ArticleForm} />
+						<Route path="/articles/:id" component={Article} />
+					</Switch>
+					<Footer />
+				</Router>
 			</div>
 		);
 	}

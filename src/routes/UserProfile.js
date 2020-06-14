@@ -4,7 +4,6 @@ import {createMuiTheme, ThemeProvider} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
 import moment from 'moment'
 //Components
-import Nav from '../components/Nav'
 import NotFound404 from '../components/NotFound404'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import UserPhoto from '../assets/UserPage/account_icon.png'
@@ -152,7 +151,6 @@ export default class UserProfile extends React.Component{
 		}
 		return (
 			<div>
-				<Nav />
 				<ThemeProvider theme={ColorTheme}>
 					{ componentToRender }
 				</ThemeProvider>
