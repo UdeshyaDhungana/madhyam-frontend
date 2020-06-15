@@ -82,8 +82,10 @@ export default class Article extends React.Component{
 	}
 
 	componentDidMount(){
-		let articleLink = `http://localhost:3000/articles/${this.state.id}`;
-		fetch(articleLink)
+		let articleLink = `/articles/${this.state.id}`;
+		fetch(articleLink, {
+			credentials: "include",
+		})
 			.then(result => result.json())
 			.then(article =>{
 				if (typeof(article._id) === "undefined"){
@@ -92,7 +94,6 @@ export default class Article extends React.Component{
 						fetchError: true,
 					});
 				} else {
-					console.log(article);
 					let articleDetails = {
 						title: article.title,
 						author: article.author,

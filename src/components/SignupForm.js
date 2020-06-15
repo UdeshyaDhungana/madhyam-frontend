@@ -91,7 +91,7 @@ export default class SignupForm extends React.Component{
 						})
 					} else {
 						//redirect to login page after signup
-						window.location.href = "/login";
+						this.props.history.push('/login');
 					}
 				});
 		} else {

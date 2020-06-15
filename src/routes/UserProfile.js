@@ -104,14 +104,9 @@ export default class UserProfile extends React.Component{
 
 	componentDidMount(){
 		//preparing variables for fetch
-		let userLink = `http://localhost:3000/users/${this.state.id}`;
-		let token = "Bearer " +localStorage.getItem('token');
-		//fetch and display
+		let userLink = `/api/users/${this.state.id}`;
 		fetch(userLink, {
-			method: 'GET',
-			headers: {
-				authorization: token,
-			}
+			credentials: "include",
 		}).then(result => result.json())
 			.then(user => {
 				if (typeof(user._id) === "undefined"){

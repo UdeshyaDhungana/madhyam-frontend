@@ -9,10 +9,11 @@
 	*/
 
 export default function Login(data){
-	let loginUrl = 'http://localhost:3000/api/login';
+	let loginUrl = '/api/login';
 
 	return fetch(loginUrl, {
 		method: 'POST',
+		credentials: "include",
 		headers: {
 			'Content-Type':'application/json',
 		},

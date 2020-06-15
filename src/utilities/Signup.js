@@ -1,10 +1,11 @@
 //this function fetches user signup and returns appropriate status
 
 export default function Signup(data){
-	let signUpUrl = 'http://localhost:3000/api/users';
+	let signUpUrl = '/api/users';
 
 	return fetch(signUpUrl, {
 		method: 'POST',
+		credentials: "include",
 		headers: {
 			'Content-Type': 'application/json',
 		},

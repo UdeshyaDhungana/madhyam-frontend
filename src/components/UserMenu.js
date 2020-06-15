@@ -1,8 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Logo from '../assets/logo.png'
-//For user menu
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -66,22 +64,4 @@ function UserMenu() {
 }
 
 
-
-
-export default function UserNav() {
-	return (
-		<div className="shadow">
-			<nav className="navbar container navbar-expand ">
-				<a href="/" className="navbar-brand ">
-					<img src={Logo} alt="madhyam logo" />
-				</a>
-
-				<ul className="navbar-nav ml-auto">
-					<li className="nav-item">
-						<UserMenu />
-					</li>
-				</ul>
-			</nav>
-		</div>
-	)
-}
+export default UserMenu;

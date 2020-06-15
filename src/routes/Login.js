@@ -4,18 +4,31 @@ import React from 'react'
 import LoginForm from '../components/LoginForm'
 
 export default class Login extends React.Component{
+	componentDidMount(){
+		if (this.props.isVerified && this.props.userExists){
+			this.props.history.push('/');
+		}
+	}
+
 	render(){
-		return (
-			<div>
+		if (!this.props.isVerified){
+			return <div />;
+		} else {
+			return (
+				<div>
 				<div
-					className="container-fluid mt-5">
+				className="container-fluid mt-5">
 					<div className="row justify-content-center">
 						<div className="col col-sm-5 border p-4 rounded-more shadow">
-							<LoginForm />
+							<LoginForm 
+								setCurrentUser={this.props.setCurrentUser}
+								history = { this.props.history }
+							/>
 						</div>
 					</div>
 				</div>
-			</div>
-		);
+				</div>
+			);
+		}
 	}
 }

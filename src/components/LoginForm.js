@@ -26,7 +26,6 @@ export default class LoginForm extends React.Component{
 			isButtonDisasbled:false,
 		}
 
-
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
@@ -56,7 +55,12 @@ export default class LoginForm extends React.Component{
 						isButtonDisasbled: false,
 					})
 				} else {
-
+					//dispatch and redirect to home
+					this.props.setCurrentUser({
+						userExists: true,
+						id: res.id,
+					})
+					this.props.history.push('/');
 				}
 			});
 	}
