@@ -19,17 +19,28 @@ export default function Footer() {
 					</div>
 					<div className="col text-right">
 
-						<a className="m-1" href="https://github.com/UdeshyaDhungana">
+						<a 
+							href="https://github.com/UdeshyaDhungana"
+							className="m-1"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
 							<Github
 								className="text-dark"
 							/>
 						</a>
-						<a className="m-1" href="https://twitter.com/Udeshya_D">
+						<a className="m-1"
+							target="_blank"
+							rel="noopener noreferrer"
+							href="https://twitter.com/Udeshya_D">
 							<Twitter 
 								className="text-primary"
 							/>
 						</a>
-						<a className="m-1" href="https://www.instagram.com/d_ude95/">
+						<a className="m-1"
+							target="_blank"
+							rel="noopener noreferrer"
+							href="https://www.instagram.com/d_ude95/">
 							<Instagram
 								className="text-danger"
 							/>

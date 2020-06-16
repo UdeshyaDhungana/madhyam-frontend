@@ -9,7 +9,7 @@ import Settings from '@material-ui/icons/Settings'
 import Logout from '@material-ui/icons/ExitToApp'
 import Create from '@material-ui/icons/CreateSharp'
 
-function UserMenu() {
+function UserMenu(props) {
 	const [anchorEl, setAnchorEl] = React.useState(null);
 
 	const handleClick = (event) => {
@@ -19,6 +19,20 @@ function UserMenu() {
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
+
+	const logout = () => {
+		fetch('/api/logout', {
+			credentials: "include",
+		}).then(response => response.json())
+			.then( res => {
+				if (!res.errors){
+					props.deleteUser();
+					window.location.href="/login";
+				}
+			})
+	}
+
+	const currentUserLink = "/users/" + props.id;
 
 	return (
 		<div className="nav-menu">
@@ -41,23 +55,22 @@ function UserMenu() {
 
 				onClose={handleClose}
 			>
-				<Link to="/articles">
+				<Link to="/articles/new">
 					<MenuItem onClick={handleClose} color="action">
 						<Create color="action" /> &nbsp; New Article	
 					</MenuItem>
 				</Link>
 
-				<Link to="/users/">
+				<Link to={currentUserLink}>
 					<MenuItem onClick={handleClose}>
 						<Settings color="action" /> &nbsp; Account	
 					</MenuItem>
 				</Link>
 
-				<Link to="/users/">
-					<MenuItem onClick={handleClose}>
-						<Logout color="action" /> &nbsp; Logout
-					</MenuItem>
-				</Link>
+
+				<MenuItem onClick={logout}>
+					<Logout color="action" /> &nbsp; Logout
+				</MenuItem>
 			</Menu>
 		</div>
 	);

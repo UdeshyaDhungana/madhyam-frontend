@@ -19,8 +19,12 @@ function rootReducer(state, action){
 					isVerified: true,
 				})
 			}
+
 		case DELETE_USER:
-			return initialStoreState;
+			return Object.assign(initialStoreState, {
+				isVerified: true,
+			});
+
 		default:
 			return initialStoreState;
 	}

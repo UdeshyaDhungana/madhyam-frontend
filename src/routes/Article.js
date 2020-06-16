@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from 'moment/dist/moment'
 import {Link} from 'react-router-dom'
-import NotFound404 from '../components/NotFound404'
+import ConnectionError from '../components/ConnectionError'
 //components
 import {createMuiTheme, ThemeProvider} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
@@ -105,7 +105,12 @@ export default class Article extends React.Component{
 						articleDetails: articleDetails,
 					});
 				}
-			});
+			}).catch(e => {
+				this.setState({
+					fetchError: true,
+					isLoading: false,
+				})
+			})
 	}
 
 	render(){
@@ -114,7 +119,7 @@ export default class Article extends React.Component{
 			componentToRender = <LoadingScreen /> 
 		} else {
 			if (this.state.fetchError){
-				componentToRender = <NotFound404 />
+				componentToRender = <ConnectionError />
 			} else {
 				componentToRender = <ArticleBody
 									title={this.state.articleDetails.title}

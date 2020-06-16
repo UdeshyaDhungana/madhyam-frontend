@@ -4,7 +4,8 @@ import React from 'react'
 import LoginForm from '../components/LoginForm'
 
 export default class Login extends React.Component{
-	componentDidMount(){
+
+	componentDidUpdate(){
 		if (this.props.isVerified && this.props.userExists){
 			this.props.history.push('/');
 		}

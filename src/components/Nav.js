@@ -25,11 +25,14 @@ function NoUserComponents(){
 	)
 }
 
-function UserComponents(){
+function UserComponents(props){
 	return (
 		<ul className="navbar-nav ml-auto">
 			<li className="nav-item">
-				<UserMenu />
+				<UserMenu
+					id={props.id}
+					deleteUser={props.deleteUser}
+				/>
 			</li>
 		</ul>
 	)
@@ -40,7 +43,10 @@ class Nav extends React.Component{
 	render(){
 		let componentsOnRight;
 		if (this.props.isVerified && this.props.userExists){
-			componentsOnRight = <UserComponents />
+			componentsOnRight = <UserComponents 
+				id={this.props.id}
+				deleteUser={this.props.deleteUser}
+				/>
 		} else if (this.props.isVerified && !this.props.userExists){
 			componentsOnRight = <NoUserComponents />
 		} else {

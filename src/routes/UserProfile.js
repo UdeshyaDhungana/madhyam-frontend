@@ -4,7 +4,7 @@ import {createMuiTheme, ThemeProvider} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
 import moment from 'moment'
 //Components
-import NotFound404 from '../components/NotFound404'
+import ConnectionError from '../components/ConnectionError'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import UserPhoto from '../assets/UserPage/account_icon.png'
 //color scheme for loading component
@@ -42,8 +42,10 @@ let articleListStyle = {
 }
 
 function UserBody(props){
-
-	const articlesList = props.articles.map((article, index)=> (
+	let articlesList;
+	articlesList = (props.articles.length===0)?
+		<p className="text-center mb-5">The user has not written any articles</p>:
+		props.articles.map((article, index)=> (
 			<div
 				className="rounded shadow-sm pl-3 pb-1 pt-4 mt-3"
 				style={articleListStyle}
@@ -71,12 +73,12 @@ function UserBody(props){
 				<div className="col-12">
 					<h4>{props.fullname}</h4>
 				</div>
-				<div className="col-5">
+				<div className="col-8">
 					{props.bio}
 				</div>
 			</div>
 
-			<div className="row mt-4 justify-content-center">
+			<div className="row mt-5 justify-content-center">
 				<div className="col col-sm-11 col-md-10 col-lg-6">
 					<h4 className="text-center">
 						Articles by user
@@ -125,7 +127,13 @@ export default class UserProfile extends React.Component{
 						userDetails: userDetails,
 					})
 				}
-			});
+			})
+			.catch(err => {
+				this.setState({
+					errorInFetch: true,
+					loadingScreen: false,
+				})
+			})
 	}
 
 	render(){
@@ -135,7 +143,7 @@ export default class UserProfile extends React.Component{
 			componentToRender = <LoadingScreen />
 		} else {
 			if (this.state.errorInFetch){
-				componentToRender = <NotFound404 />
+				componentToRender = <ConnectionError />
 			} else {
 				componentToRender = <UserBody 
 									articles={this.state.userDetails.articles}
