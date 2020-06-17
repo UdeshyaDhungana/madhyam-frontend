@@ -22,7 +22,7 @@
     "typeface-playfair-display": "^1.1.4",
     "typeface-roboto": "0.0.75"
   },
-  "proxy": "",
+  "proxy": "https://murmuring-refuge-83782.herokuapp.com/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
