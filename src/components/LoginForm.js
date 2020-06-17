@@ -4,7 +4,6 @@ import FormHelperText from '@material-ui/core/FormHelperText'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import { Button } from '@material-ui/core'
 
-
 //utilities
 import Login from '../utilities/Login'
 // Theme tweaking
@@ -49,15 +48,14 @@ export default class LoginForm extends React.Component{
 
 		Login(Object.assign({}, this.state))
 			.then(res => { 
-				if (res.errors){
+				if (res.error){
 					this.setState({
-						errorMessage: res.errors,
+						errorMessage: res.error,
 						isButtonDisasbled: false,
 					})
 				} else {
 					//dispatch and redirect to home
 					this.props.setCurrentUser({
-						userExists: true,
 						id: res.id,
 					})
 					this.props.history.push('/');

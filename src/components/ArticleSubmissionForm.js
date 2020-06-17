@@ -5,6 +5,7 @@ import AddCircleOutline from '@material-ui/icons/AddCircleOutline'
 import RemoveCircleOutline from '@material-ui/icons/RemoveCircleOutline'
 import IconButton from '@material-ui/core/IconButton'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import PostArticle from '../utilities/PostArticle'
 
 //theme for form
 const theme = createMuiTheme({
@@ -22,6 +23,8 @@ export default class ArticleSubmissionForm extends React.Component{
 		this.state = {
 			title: "",
 			paragraphs: [""],
+			isButtonDisabled: false,
+			fetchError: null,
 		}
 
 		//binding
@@ -68,19 +71,34 @@ export default class ArticleSubmissionForm extends React.Component{
 
 	handleSubmit(e){
 		e.preventDefault();
+		//send the article
+		this.setState({
+			isButtonDisabled: true,
+		});
+		PostArticle(Object.assign({},this.state))
+			.then(response => {
+				if (response.error){
+					this.setState({
+						fetchError: response.error,
+						isButtonDisabled: false,
+					})
+				} else {
+					this.props.history.push(`/articles/${response.id}`);
+				}
+			})
 	}
 
 	render(){
 		const paragraphs = this.state.paragraphs.map(( paragraph , index ) => {
 			return (
-					<TextField 
-						key={index}
-						multiline
-						className="mt-4"
-						fullWidth
-						onChange={(e) => {this.handleParagraphChange(e, index)}}
-						value={paragraph}
-					/	>
+				<TextField 
+					key={index}
+					multiline
+					className="mt-4"
+					fullWidth
+					onChange={(e) => {this.handleParagraphChange(e, index)}}
+					value={paragraph}
+				/	>
 			)
 		});
 		return (
@@ -91,18 +109,19 @@ export default class ArticleSubmissionForm extends React.Component{
 
 					<Button
 						className="mt-3"
+						disabled={this.state.isButtonDisabled}
 						type="submit"
 						variant="contained"
 						color="primary"
 					>
 						Publish
 					</Button>	
-
+					<p className="text-danger">{this.state.fetchError}</p>
 					<TextField
 						fullWidth
 						variant="outlined"
 						multiline
-						className="my-5"
+						className="my-4"
 						label="Title"
 						id="title"
 						name="title"
@@ -125,11 +144,11 @@ export default class ArticleSubmissionForm extends React.Component{
 					<IconButton 
 						className="shadow ml-3 mt-5"
 						onClick={() => {
-								let paragraphs = this.state.paragraphs;
-								if (paragraphs[paragraphs.length-1]){
-									this.addParagraph();
-								}
+							let paragraphs = this.state.paragraphs;
+							if (paragraphs[paragraphs.length-1]){
+								this.addParagraph();
 							}
+						}
 						}
 					>
 						<AddCircleOutline />

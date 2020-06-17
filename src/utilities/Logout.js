@@ -1,11 +1,12 @@
 //This function requests server to delete cookies => hence logout
 
 export default function Logout(){
-	let logoutUrl = '/api/logout';
-	
-	return fetch(logoutUrl, {
+	return fetch('/api/logout', {
 		credentials: "include"
 	})
 		.then(result => result.json())
-		.then(res => res);
+		.catch(e => ({
+			error: "Could not connect",
+			erorrDetails: e,
+		}))
 }

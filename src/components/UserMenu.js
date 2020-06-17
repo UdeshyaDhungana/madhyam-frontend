@@ -6,8 +6,9 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import Settings from '@material-ui/icons/Settings'
-import Logout from '@material-ui/icons/ExitToApp'
+import ExitToApp from '@material-ui/icons/ExitToApp'
 import Create from '@material-ui/icons/CreateSharp'
+import Logout from '../utilities/Logout'
 
 function UserMenu(props) {
 	const [anchorEl, setAnchorEl] = React.useState(null);
@@ -21,11 +22,9 @@ function UserMenu(props) {
 	};
 
 	const logout = () => {
-		fetch('/api/logout', {
-			credentials: "include",
-		}).then(response => response.json())
-			.then( res => {
-				if (!res.errors){
+		Logout()
+			.then(x => {
+				if (!x.error){
 					props.deleteUser();
 					window.location.href="/login";
 				}
@@ -69,7 +68,7 @@ function UserMenu(props) {
 
 
 				<MenuItem onClick={logout}>
-					<Logout color="action" /> &nbsp; Logout
+					<ExitToApp color="action" /> &nbsp; Logout
 				</MenuItem>
 			</Menu>
 		</div>

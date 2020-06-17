@@ -8,7 +8,9 @@ export default class ArticleForm extends React.Component{
 				<div className="container-fluid mt-5">
 					<div className="row justify-content-center">
 						<div className="col-sm-10 col-md-9 col-lg-7">
-							<ArticleSubmissionForm />
+							<ArticleSubmissionForm 
+								history={this.props.history}
+							/>
 						</div>
 					</div>
 				</div>

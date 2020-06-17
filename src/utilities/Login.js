@@ -3,15 +3,14 @@
 /*
 	returns in following format
 	{
-		errors: null/string,
+		error: null/string,
 		[others]
 	}
 	*/
 
 export default function Login(data){
-	let loginUrl = '/api/login';
 
-	return fetch(loginUrl, {
+	return fetch('/api/login', {
 		method: 'POST',
 		credentials: "include",
 		headers: {
@@ -19,19 +18,8 @@ export default function Login(data){
 		},
 		body: JSON.stringify(data),
 	})
-		.then (result => {
-			if (result.status === 422 || result.status === 401){
-				return {
-					errors: "Email or password is incorrect",
-				}
-			} else if (result.status === 500){
-				return {
-					errors: "Internal Server Error",
-				}
-			} else {
-				return result.json();
-			}
-		}).catch(x => ({
-			errors: "Could not connect to server",
+		.then (result => result.json()).catch(x => ({
+			errorDetails: x,
+			error: "Could not connect to server",
 		}));
 }

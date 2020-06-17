@@ -82,29 +82,23 @@ export default class Article extends React.Component{
 	}
 
 	componentDidMount(){
-		let articleLink = `/articles/${this.state.id}`;
+		let articleLink = `/api/articles/${this.state.id}`;
 		fetch(articleLink, {
 			credentials: "include",
 		})
 			.then(result => result.json())
-			.then(article =>{
-				if (typeof(article._id) === "undefined"){
-					this.setState({
-						isLoading: false,
-						fetchError: true,
-					});
-				} else {
-					let articleDetails = {
-						title: article.title,
-						author: article.author,
-						createdAt: article.createdAt,
-						paragraphs: article.paragraphs,
-					}
-					this.setState({
-						isLoading: false,
-						articleDetails: articleDetails,
-					});
+			.then(res =>{
+				let articleDetails = {
+					title: res.article.title,
+					author: res.article.author,
+					createdAt: res.article.createdAt,
+					paragraphs: res.article.paragraphs,
 				}
+				this.setState({
+					isLoading: false,
+					articleDetails: articleDetails,
+				});
+
 			}).catch(e => {
 				this.setState({
 					fetchError: true,
@@ -122,11 +116,11 @@ export default class Article extends React.Component{
 				componentToRender = <ConnectionError />
 			} else {
 				componentToRender = <ArticleBody
-									title={this.state.articleDetails.title}
-									paragraphs={this.state.articleDetails.paragraphs}
-									createdAt={this.state.articleDetails.createdAt}
-									author={this.state.articleDetails.author}
-									/>
+					title={this.state.articleDetails.title}
+					paragraphs={this.state.articleDetails.paragraphs}
+					createdAt={this.state.articleDetails.createdAt}
+					author={this.state.articleDetails.author}
+				/>
 			}
 		}
 		return (

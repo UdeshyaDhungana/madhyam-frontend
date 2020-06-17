@@ -63,7 +63,7 @@ function UserBody(props){
 				</a>
 			</div>
 		)
-	);
+		);
 	return (
 		<div className="container mt-5">
 			<div className="row">
@@ -111,22 +111,16 @@ export default class UserProfile extends React.Component{
 			credentials: "include",
 		}).then(result => result.json())
 			.then(user => {
-				if (typeof(user._id) === "undefined"){
-					this.setState({
-						loadingScreen: false,
-						errorInFetch: true,
-					});
-				} else {
-					let userDetails = {
-						fullname: user.fullname,
-						bio: user.bio,
-						articles: user.articles,
-					}
-					this.setState({
-						loadingScreen: false,
-						userDetails: userDetails,
-					})
+				let userDetails = {
+					fullname: user.fullname,
+					bio: user.bio,
+					articles: user.articles,
 				}
+				this.setState({
+					loadingScreen: false,
+					userDetails: userDetails,
+				})
+
 			})
 			.catch(err => {
 				this.setState({
@@ -146,10 +140,10 @@ export default class UserProfile extends React.Component{
 				componentToRender = <ConnectionError />
 			} else {
 				componentToRender = <UserBody 
-									articles={this.state.userDetails.articles}
-									fullname={this.state.userDetails.fullname}
-									bio={this.state.userDetails.bio}
-									/>
+					articles={this.state.userDetails.articles}
+					fullname={this.state.userDetails.fullname}
+					bio={this.state.userDetails.bio}
+				/>
 			}
 		}
 		return (

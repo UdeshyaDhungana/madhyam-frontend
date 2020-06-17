@@ -84,10 +84,10 @@ export default class SignupForm extends React.Component{
 		if (this.checkValid()){
 			Signup(Object.assign({}, this.state))
 				.then(res => {
-					if (res.errorMessage){
+					if (res.error){
 						this.setState({
 							isButtonDisabled: false,
-							errorMessage: res.errorMessage,
+							errorMessage: res.error,
 						})
 					} else {
 						//redirect to login page after signup

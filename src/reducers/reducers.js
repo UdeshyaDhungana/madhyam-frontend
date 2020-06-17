@@ -13,18 +13,19 @@ function rootReducer(state, action){
 			if (typeof (state) === "undefined"){
 				return initialStoreState;
 			} else {
-				return Object.assign({}, initialStoreState, {
+				return Object.assign({}, {
 					id: action.id,
-					userExists: action.userExists,
+					userExists: Boolean(action.id),
 					isVerified: true,
 				})
 			}
-
 		case DELETE_USER:
-			return Object.assign(initialStoreState, {
+			return {
 				isVerified: true,
-			});
-
+				userExists: false,
+				id: null,
+			}
+	
 		default:
 			return initialStoreState;
 	}
