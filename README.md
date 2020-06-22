@@ -1,6 +1,5 @@
 # Madhyam Frontend
----
-
+Deployed using Heroku: [Here](https://salty-falls-84295.herokuapp.com/)
 # Made using ReactJs
 Web frontend from Madhyam. Following important packages were used:
 
